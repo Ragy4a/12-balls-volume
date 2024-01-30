@@ -1,27 +1,24 @@
 'use strict'
 
-const amountBalls = 12;
-const initialDiameter = 0.5;
-const wallThickness = 0.01; 
+const AMOUNT_BALLS = 12;
 
-function calculatevolume(amountBalls, initialDiameter, wallThickness) {
-    let totalVolume = 0;
-  
-    let currentDiameter = initialDiameter;
-    for (let i = 0; i < amountBalls; i++) {
-      const radius = currentDiameter / 2;
-      const innerRadius = radius - wallThickness;
-      const innerVolume = (4/3) * Math.PI * (innerRadius ** 3);
-      const outerVolume = (4/3) * Math.PI * (radius ** 3);
-      const shellVolume = outerVolume - innerVolume;
-      totalVolume += shellVolume;
-  
-      currentDiameter += 2 * wallThickness;
-    }
-  
-    return totalVolume;
-  }
+const DIAMETR_SMALLEST = 0.5;
 
-var result = calculatevolume(amountBalls, initialDiameter, wallThickness);
+const WALL_THICKNESS = 0.01;
 
-console.log(`Summary: ${result} cubic meters`);
+const V_SMALLEST = (4 / 3) * Math.PI * Math.pow(DIAMETR_SMALLEST / 2, 3);
+
+const V = [V_SMALLEST];
+for (let i = 0; i < AMOUNT_BALLS; i++) {
+  const diameter = DIAMETR_SMALLEST + WALL_THICKNESS * i;
+  const volume = (4 / 3) * Math.PI * Math.pow(diameter / 2, 3);
+  V.push(volume);
+}
+
+let totalVolume = 0;
+for (let i = 1; i < AMOUNT_BALLS + 1; i++) {
+  console.log(`V${i}      `,V[i]);
+  totalVolume += V[i];
+}
+
+console.log('Summary: ', totalVolume)
