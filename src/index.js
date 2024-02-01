@@ -1,24 +1,15 @@
 'use strict'
 
 const AMOUNT_BALLS = 12;
-
-const DIAMETR_SMALLEST = 0.5;
-
+const START_DIAMETR = 0.5;
 const WALL_THICKNESS = 0.01;
 
-const V_SMALLEST = (4 / 3) * Math.PI * Math.pow(DIAMETR_SMALLEST / 2, 3);
-
-const V = [V_SMALLEST];
-for (let i = 0; i < AMOUNT_BALLS; i++) {
-  const diameter = DIAMETR_SMALLEST + WALL_THICKNESS * i;
-  const volume = (4 / 3) * Math.PI * Math.pow(diameter / 2, 3);
-  V.push(volume);
-}
-
 let totalVolume = 0;
-for (let i = 1; i < AMOUNT_BALLS + 1; i++) {
-  console.log(`V${i}      `,V[i]);
-  totalVolume += V[i];
+
+for (let i = 1; i <= AMOUNT_BALLS; i++) {
+  let d = START_DIAMETR + 2 * (i-2) * WALL_THICKNESS;
+  let V = 4 / 3 * Math.PI * Math.pow(d / 2, 3);
+  totalVolume += V;
 }
 
-console.log('Summary: ', totalVolume)
+console.log('Answer: ', totalVolume, 'cubic meters.')
